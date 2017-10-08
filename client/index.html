@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mango Tree Life Cycle</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <h1>Mango Tree Life Cycle</h1>
+        </div>
+        <div class="row">
+          <div class="card mb-3">
+            <img v-if="tree._age < 5" class="card-img-top" style="max-height: 350px; max-width: 500px" src="https://www.youmefit.com/wp-content/uploads/2012/09/farmers-market-union-3.jpg" alt="Card image cap">
+            <img v-if="tree._age >= 5 && tree._age <=9" class="card-img-top" style="max-height: 350px; max-width: 500px" src="https://imgur.com/LGjw1Ro.jpg" alt="Card image cap">
+            <img v-if="tree._age >= 10 && tree._age < 15" class="card-img-top" style="max-height: 350px; max-width: 500px" src="https://aff.bstatic.com/images/hotel/max500/852/85256196.jpg" alt="Card image cap">
+            <img v-if="tree._age == 15" class="card-img-top" style="max-height: 350px; max-width: 500px" src="https://c1.staticflickr.com/9/8191/8102440495_ff5e9b7446_z.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Life Cycle of a Mango Tree in My Garden</h4>
+              <p class="card-text">
+                In my garden, there is a <b>{{ tree._age }}</b> years old Mango Tree, <br />
+                Its height <b>{{ tree._height }} Meter(s)</b> tall! <br />
+                On Harvest day, it produces <b>{{ tree._harvested }} Mango Fruit</b> in which <b>{{ tree._good }} are GOOD</b> and <b>{{ tree._bad }} are BAD</b> <br />
+                Based on its age indicated, you might have thought, that the Tree is <b>{{ tree._healthyStatus? 'Very Healty and Strong!' : 'Already Dead' }}</b>
+              </p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+    var config = {
+      databaseURL: "https://mangotree-yosua.firebaseio.com",
+      projectId: "mangotree-yosua",
+    }
+
+    firebase.initializeApp(config)
+    var db = firebase.database()
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        //
+      },
+      firebase: function() {
+        return {
+          tree: {
+            source: db.ref('mangoTree'),
+            // optionally bind as an object
+            asObject: true
+          }
+        }
+      }
+    })
+    </script>
+  </body>
+</html>
